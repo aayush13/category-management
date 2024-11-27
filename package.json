@@ -4,7 +4,7 @@
   "description": "Built an application to manage E-Commerce Fashion categories in a tree structure",
   "main": "index.js",
   "scripts": {
-    "start": "node ./app.js",
+    "start": "node ./src/app.js",
     "test": "jest"
   },
   "repository": {
