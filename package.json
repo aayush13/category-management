@@ -4,7 +4,8 @@
   "description": "Built an application to manage E-Commerce Fashion categories in a tree structure",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./app.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/aayush13/category-management/issues"
   },
-  "homepage": "https://github.com/aayush13/category-management#readme"
+  "homepage": "https://github.com/aayush13/category-management#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.2",
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
+  }
 }
