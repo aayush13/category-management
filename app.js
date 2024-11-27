@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use('/api/categories', categoryRoutes);
 
 // MongoDB Connection
-const mongoURI= (process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/categoryMgmt')
+const mongoURI= (process.env.MONGO_URI || "mongodb+srv://aayush:qwerty123@cluster10.qoffs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster10")
 mongoose.set('debug', true);
 mongoose.connect(mongoURI)
     .then(() => {

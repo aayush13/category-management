@@ -4,7 +4,7 @@
   "description": "Built an application to manage E-Commerce Fashion categories in a tree structure",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node ./app.js",
     "test": "jest"
   },
   "repository": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "body-parser": "^1.20.3",
     "express": "^4.21.1",
-    "mongoose": "^8.8.2"
+    "mongoose": "8.5.2."
   },
   "devDependencies": {
     "jest": "^29.7.0",
