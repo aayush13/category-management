@@ -27,7 +27,7 @@ router.put("/update/:id", async (req, res) => {
     }
     //prevent circular reference
     if(req.params.id == parent){
-      return res.status(400).json({ message: "Circular reference" });
+      return res.status(400).json({ message: "Circular reference not allowed" });
     }
     const category = await Category.findByIdAndUpdate(
       req.params.id,

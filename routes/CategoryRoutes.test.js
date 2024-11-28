@@ -76,8 +76,21 @@ describe('Category API', () => {
     expect(res.body.message).toContain('Cast to ObjectId failed for value');
   });
 
+  //Scneario 6 - Circular reference
+  it('do not allow a category to be its own parent', async () => {
+    const category = new Category({ name: 'Circular' });
+    await category.save();
+
+    const res = await request(app)
+      .put(`/api/categories/update/${category._id}`)
+      .send({name: 'Circular', parent: category._id });
+
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.message).toContain('Circular reference not allowed');
+  });
+
   // Test Deletion - /delete/:id
-  //Scneario 6 - Successfully delete a category/subcategory
+  //Scneario 7 - Successfully delete a category/subcategory
   it('should delete a category and its subcategories', async () => {
     const parentCategory = new Category({ name: 'Parent Category' });
     await parentCategory.save();
@@ -90,16 +103,16 @@ describe('Category API', () => {
     expect(categories.length).toBe(0);
   });
 
-  //Scenario 7 - Handle delete request for an invalid id 
-  it('should return an error when deleting a non-existent category', async () => {
+  //Scenario 8 - Handle delete request for an invalid id 
+  it('return an error when deleting a non-existent category', async () => {
     const res = await request(server).delete('/api/categories/delete/60f1bdb4b5a55be63a');
     expect(res.statusCode).toEqual(500);
     expect(res.body.message).toContain('Cast to ObjectId failed for value');
   });
 
   // Test get Category Tree - /
-  //Scneario 8- Get category tree.
-  it('should retrieve the category tree', async () => {
+  //Scneario 9- Get category tree.
+  it('retrieve the category tree', async () => {
     const parentCategory = new Category({ name: 'Parent' });
     await parentCategory.save();
     console.log(parentCategory)
@@ -114,4 +127,14 @@ describe('Category API', () => {
     expect(res.body[0].name).toBe('Parent');
     expect(res.body[0].children[0].name).toBe('Child');
   });
+
+  //Scneario 10- Get category tree (empty tree).
+  it(' return an empty tree', async () => {
+    const res = await request(server)
+      .get('/api/categories/tree');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual([]);
+  });
+
 });
