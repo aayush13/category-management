@@ -1,7 +1,7 @@
-const express = require("express");
+import express from 'express';
+import Category from '../models/Category.js';  
+import utils from '../utils/index.js'; 
 const router = express.Router();
-const Category = require("../models/Category");
-const utils = require("../utils/index")
 // create new categories
 router.post("/create", async (req, res) => {
   try {
@@ -49,7 +49,7 @@ router.delete("/delete/:id", async (req, res) => {
       _id: { $in: docsToDelete }
     });
 
-    return res.status(200).json({ message: "Category / subcategories deleted successfully" });
+    return res.status(200).json({ message: "Category / subcategories deleted successfully", result });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -81,4 +81,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

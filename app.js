@@ -1,13 +1,14 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const categoryRoutes = require('./routes/categoryRoutes');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import categoryRoutes from './routes/categoryRoutes.js';  
+import cors from 'cors';
+import dotenv from 'dotenv';
 
 const app = express();
 
 const environment = process.env.NODE_ENV || 'development';
-require('dotenv').config({
+dotenv.config({
   path: `.env.${environment}` 
 });
 const PORT = process.env.PORT || 3000;
@@ -39,4 +40,4 @@ app.listen(PORT, () => {
 });
 
 
-module.exports = app;
+export default app;

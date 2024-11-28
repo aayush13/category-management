@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Built an application to manage E-Commerce Fashion categories in a tree structure",
   "main": "index.js",
+  "type":"module",
   "scripts": {
     "dev": "nodemon ./app.js",
     "start": "node ./app.js",

@@ -1,5 +1,4 @@
-
-const Category = require("../models/Category");
+import Category from '../models/Category.js';  
 
 async function getAllDescendants(parentId) {
   const descendants = [];
@@ -17,4 +16,4 @@ async function getAllDescendants(parentId) {
   return descendants;
 }
 
-module.exports ={ getAllDescendants}
+export default getAllDescendants
