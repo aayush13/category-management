@@ -1,6 +1,6 @@
 import express from 'express';
 import Category from '../models/Category.js';  
-import utils from '../utils/index.js'; 
+import getAllDescendants from '../utils/index.js';
 const router = express.Router();
 // create new categories
 router.post("/create", async (req, res) => {
@@ -43,7 +43,7 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const docsToDelete = await utils.getAllDescendants(id)
+    const docsToDelete = await getAllDescendants(id)
     docsToDelete.push(id)
     const result = await Category.deleteMany({
       _id: { $in: docsToDelete }
