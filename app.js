@@ -5,7 +5,13 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const cors = require('cors');
 
 const app = express();
+
+const environment = process.env.NODE_ENV || 'development';
+require('dotenv').config({
+  path: `.env.${environment}` 
+});
 const PORT = process.env.PORT || 3000;
+const databaseUrl = process.env.DATABASE_URL;
 
 //middleware
 app.use(express.urlencoded({ extended: true }))
@@ -19,7 +25,7 @@ app.use(cors({
 app.use('/api/categories', categoryRoutes);
 
 // MongoDB Connection
-const mongoURI= (process.env.MONGO_URI || "mongodb+srv://aayush:qwerty123@cluster10.qoffs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster10")
+const mongoURI= databaseUrl
 mongoose.set('debug', true);
 mongoose.connect(mongoURI)
     .then(() => {
