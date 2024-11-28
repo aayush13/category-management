@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "*", // can be improved by adding whitelisted IPs
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
@@ -27,8 +27,7 @@ app.use(
 // Use category routes
 app.use("/api/categories", categoryRoutes);
 
-
-// MongoDB Connection
+// MongoDB Connection 
 export const connectDB = async () => {
   const mongoURI = databaseUrl;
   console.log(mongoURI, process.env.DATABASE_URL);
@@ -41,7 +40,6 @@ export const connectDB = async () => {
       console.error("Connection issue:", err);
     });
 };
-
 
 connectDB()
 app.listen(PORT, () => {

@@ -21,6 +21,7 @@ router.post("/create", async (req, res) => {
 router.put("/update/:id", async (req, res) => {
   try {
     const { name, parent } = req.body;
+    //check if the required field is available
     if (!name) {
       return res.status(400).json({ message: "Please add updated name in the request body." });
     }
@@ -43,6 +44,7 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    // get all the child docs upto level-n
     const docsToDelete = await getAllDescendants(id)
     docsToDelete.push(id)
     const result = await Category.deleteMany({
@@ -61,8 +63,8 @@ router.get("/tree", async (req, res) => {
     const categories = await Category.find().lean();
     const buildTree = (parentId) => {
       return categories
-        .filter((cat) => String(cat.parent) === String(parentId))
-        .map((cat) => ({ ...cat, children: buildTree(cat._id) }));
+        .filter((cat) => String(cat.parent) === String(parentId))   // get all the nodes with null parent
+        .map((cat) => ({ ...cat, children: buildTree(cat._id) }));  // using recursive call get all the child docs
     };
     const tree = buildTree(null);
     return res.status(200).json(tree);
@@ -71,7 +73,7 @@ router.get("/tree", async (req, res) => {
   }
 });
 
-// Get categories
+// Get all categories in an array of objects
 router.get("/", async (req, res) => {
   try {
     const categories = await Category.find().lean();
